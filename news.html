@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>お知らせ | ベリーファーム いちご狩り農園</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root{--red:#c0392b;--pink:#e8556d;--light-pink:#fde8ec;--cream:#fdf6f0;--green:#2d6a4f;--dark:#1a0a0d;--white:#fffaf8;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(--dark);}
+
+  header{background:var(--white);border-bottom:3px solid var(--pink);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(200,60,80,.10);}
+  .header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .logo-icon{font-size:2rem;}
+  .logo-text{font-family:'Shippori Mincho',serif;font-size:1.5rem;font-weight:800;color:var(--red);}
+  .logo-sub{font-size:.7rem;color:var(--green);font-weight:500;letter-spacing:.1em;display:block;}
+  nav{display:flex;gap:28px;align-items:center;}
+  nav a{text-decoration:none;color:var(--dark);font-weight:700;font-size:.92rem;position:relative;transition:color .2s;}
+  nav a::after{content:'';display:block;height:2px;background:var(--pink);width:0;transition:width .3s;position:absolute;bottom:-4px;left:0;}
+  nav a:hover{color:var(--red);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{background:var(--red);color:white !important;padding:10px 22px;border-radius:50px;font-weight:700 !important;}
+  .nav-cta:hover{background:var(--pink) !important;}
+  .nav-cta::after{display:none !important;}
+
+  .page-hero{position:relative;height:300px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+  .page-hero-bg{position:absolute;inset:0;background-image:url('img4.png');background-size:cover;background-position:center 60%;filter:brightness(.42);}
+  .page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,10,13,.3),rgba(192,57,43,.25));}
+  .page-hero-content{position:relative;z-index:2;}
+  .page-hero-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.8);margin-bottom:10px;}
+  .page-hero-title{font-family:'Shippori Mincho',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:white;text-shadow:0 2px 16px rgba(0,0,0,.3);}
+  .page-hero-desc{color:rgba(255,255,255,.82);font-size:1rem;margin-top:14px;line-height:1.8;}
+  .breadcrumb{max-width:1100px;margin:20px auto 0;text-align:left;font-size:.8rem;color:#aaa;padding:0 32px;}
+  .breadcrumb a{color:#aaa;text-decoration:none;}
+  .breadcrumb a:hover{color:var(--red);}
+
+  .container{max-width:860px;margin:0 auto;}
+  .news-section{padding:72px 32px;}
+  .section-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.18em;color:var(--pink);margin-bottom:8px;}
+
+  .filter-tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px;}
+  .filter-tab{padding:8px 22px;border-radius:50px;font-size:.84rem;font-weight:700;border:2px solid #e8d0d4;background:white;color:#999;cursor:pointer;transition:all .2s;}
+  .filter-tab.active,.filter-tab:hover{background:var(--red);color:white;border-color:var(--red);}
+
+  .news-list{border-top:1.5px solid #f0e0e4;}
+  .news-item{display:grid;grid-template-columns:110px 90px 1fr;gap:18px;align-items:center;padding:24px 0;border-bottom:1px solid #f5eded;text-decoration:none;color:inherit;transition:background .2s,padding .2s;border-radius:10px;}
+  .news-item:hover{background:var(--light-pink);padding:24px 16px;margin:0 -16px;}
+  .news-date{font-size:.82rem;color:#aaa;font-weight:500;}
+  .news-tag{background:var(--light-pink);color:var(--red);font-size:.72rem;font-weight:700;padding:4px 14px;border-radius:50px;text-align:center;white-space:nowrap;}
+  .news-tag.tag-important{background:#fff3cd;color:#856404;}
+  .news-tag.tag-event{background:#d1f2eb;color:#1a7a5e;}
+  .news-title{font-size:.95rem;line-height:1.65;font-weight:500;}
+
+  .pagination{display:flex;justify-content:center;gap:8px;margin-top:52px;}
+  .page-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.88rem;font-weight:700;text-decoration:none;color:#999;border:1.5px solid #e8d0d4;transition:all .2s;}
+  .page-num.active,.page-num:hover{background:var(--red);color:white;border-color:var(--red);}
+
+  footer{background:var(--dark);color:rgba(255,255,255,.75);padding:56px 32px 28px;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:48px;margin-bottom:40px;flex-wrap:wrap;}
+  .footer-brand .logo-text{color:var(--pink);font-size:1.3rem;}
+  .footer-brand .logo-sub{color:rgba(255,255,255,.5);}
+  .footer-tagline{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7;}
+  .footer-nav{display:flex;gap:48px;flex-wrap:wrap;}
+  .footer-nav-group h4{color:white;font-size:.88rem;font-weight:700;letter-spacing:.1em;margin-bottom:16px;}
+  .footer-nav-group a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:.84rem;margin-bottom:10px;transition:color .2s;}
+  .footer-nav-group a:hover{color:var(--pink);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:22px;text-align:center;font-size:.78rem;color:rgba(255,255,255,.35);}
+
+  @media(max-width:600px){.news-item{grid-template-columns:1fr;gap:6px;}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🍓</span>
+      <div><span class="logo-text">ベリーファーム</span><span class="logo-sub">BERRY FARM いちご狩り農園</span></div>
+    </a>
+    <nav>
+      <a href="index.html">トップ</a>
+      <a href="index.html#about">サイト紹介</a>
+      <a href="service.html">サービス</a>
+      <a href="news.html">お知らせ</a>
+      <a href="index.html#access">アクセス</a>
+      <a href="service.html" class="nav-cta">🍓 予約する</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-label">News</p>
+    <h1 class="page-hero-title">お知らせ</h1>
+    <p class="page-hero-desc">農園からの最新情報をお届けします。</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">トップ</a> &gt; お知らせ</div>
+
+<section class="news-section">
+  <div class="container">
+    <div class="filter-tabs">
+      <div class="filter-tab active">すべて</div>
+      <div class="filter-tab">重要</div>
+      <div class="filter-tab">イベント</div>
+      <div class="filter-tab">新着</div>
+      <div class="filter-tab">お知らせ</div>
+    </div>
+    <div class="news-list">
+      <a href="#" class="news-item"><span class="news-date">2025.01.15</span><span class="news-tag tag-important">重要</span><span class="news-title">2025年シーズン いちご狩り開園のお知らせ（1月18日より営業開始）</span></a>
+      <a href="#" class="news-item"><span class="news-date">2025.01.10</span><span class="news-tag">新着</span><span class="news-title">1月限定！バレンタインいちご摘み体験プランを販売開始しました</span></a>
+      <a href="#" class="news-item"><span class="news-date">2024.12.20</span><span class="news-tag tag-important">重要</span><span class="news-title">年末年始の営業時間について（12/29〜1/3は休業します）</span></a>
+      <a href="#" class="news-item"><span class="news-date">2024.11.10</span><span class="news-tag tag-event">イベント</span><span class="news-title">新品種「おいCベリー」の試食イベントを開催します！ 11月23日（土）開催</span></a>
+      <a href="#" class="news-item"><span class="news-date">2024.10.05</span><span class="news-tag">お知らせ</span><span class="news-title">オンライン予約システムをリニューアルしました。より便利にご予約いただけます。</span></a>
+      <a href="#" class="news-item"><span class="news-date">2024.09.20</span><span class="news-tag tag-event">イベント</span><span class="news-title">秋のいちごジャム作り体験ワークショップ参加者募集中！</span></a>
+      <a href="#" class="news-item"><span class="news-date">2024.08.15</span><span class="news-tag">お知らせ</span><span class="news-title">駐車場を拡張しました。50台から80台に増設しています。</span></a>
+      <a href="#" class="news-item"><span class="news-date">2024.07.01</span><span class="news-tag">新着</span><span class="news-title">公式SNSアカウントを開設しました。最新情報をフォローしてご確認ください！</span></a>
+    </div>
+    <div class="pagination">
+      <a href="#" class="page-num active">1</a>
+      <a href="#" class="page-num">2</a>
+      <a href="#" class="page-num">3</a>
+      <a href="#" class="page-num">›</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-icon">🍓</span><div><span class="logo-text">ベリーファーム</span><span class="logo-sub">BERRY FARM いちご狩り農園</span></div></div>
+        <p class="footer-tagline">甘くて、みずみずしい。<br>本物のいちごを摘みに来て。</p>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-group"><h4>サイトマップ</h4><a href="index.html">トップページ</a><a href="index.html#about">サイト紹介</a><a href="index.html#access">アクセス</a></div>
+        <div class="footer-nav-group"><h4>コンテンツ</h4><a href="service.html">サービス</a><a href="news.html">お知らせ</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 ベリーファーム All Rights Reserved.</div>
+  </div>
+</footer>
+</body>
+</html>

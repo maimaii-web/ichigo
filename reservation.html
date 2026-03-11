@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ご予約 | ベリーファーム いちご狩り農園</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#c0392b;--pink:#e8556d;--light-pink:#fde8ec;--cream:#fdf6f0;--green:#2d6a4f;--dark:#1a0a0d;--white:#fffaf8; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(--dark);}
+
+  header{background:var(--white);border-bottom:3px solid var(--pink);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(200,60,80,.10);}
+  .header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .logo-icon{font-size:2rem;}
+  .logo-text{font-family:'Shippori Mincho',serif;font-size:1.5rem;font-weight:800;color:var(--red);}
+  .logo-sub{font-size:.7rem;color:var(--green);font-weight:500;letter-spacing:.1em;display:block;}
+  nav{display:flex;gap:28px;align-items:center;}
+  nav a{text-decoration:none;color:var(--dark);font-weight:700;font-size:.92rem;position:relative;transition:color .2s;}
+  nav a::after{content:'';display:block;height:2px;background:var(--pink);width:0;transition:width .3s;position:absolute;bottom:-4px;left:0;}
+  nav a:hover{color:var(--red);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{background:var(--red);color:white !important;padding:10px 22px;border-radius:50px;font-weight:700 !important;transition:background .2s !important;}
+  .nav-cta:hover{background:var(--pink) !important;}
+  .nav-cta::after{display:none !important;}
+
+  /* PAGE HERO */
+  .page-hero{position:relative;height:300px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+  .page-hero-bg{position:absolute;inset:0;background-image:url('img2.png');background-size:cover;background-position:center 40%;filter:brightness(.45);}
+  .page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,10,13,.3),rgba(192,57,43,.3));}
+  .page-hero-content{position:relative;z-index:2;}
+  .page-hero-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.8);margin-bottom:10px;}
+  .page-hero-title{font-family:'Shippori Mincho',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:white;text-shadow:0 2px 16px rgba(0,0,0,.3);}
+  .page-hero-desc{color:rgba(255,255,255,.82);font-size:1rem;margin-top:14px;line-height:1.8;}
+  .breadcrumb{max-width:1100px;margin:20px auto 0;text-align:left;font-size:.8rem;color:#aaa;padding:0 32px;}
+  .breadcrumb a{color:#aaa;text-decoration:none;}
+  .breadcrumb a:hover{color:var(--red);}
+
+  /* PLAN SELECT */
+  .plan-select-section{padding:64px 32px 0;}
+  .container{max-width:860px;margin:0 auto;}
+  .section-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.18em;color:var(--pink);margin-bottom:8px;}
+  .section-title{font-family:'Shippori Mincho',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:800;color:var(--dark);margin-bottom:20px;}
+
+  .plan-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:48px;}
+  .plan-select-card{
+    border:2.5px solid #f0e0e4;border-radius:18px;padding:22px 18px;
+    cursor:pointer;transition:all .2s;text-align:center;background:white;
+    position:relative;
+  }
+  .plan-select-card:hover{border-color:var(--pink);transform:translateY(-3px);}
+  .plan-select-card.selected{border-color:var(--red);background:var(--light-pink);}
+  .plan-select-card.selected::after{
+    content:'✓ 選択中';position:absolute;top:-1px;right:-1px;
+    background:var(--red);color:white;font-size:.68rem;font-weight:700;
+    padding:4px 12px;border-radius:0 16px 0 10px;
+  }
+  .plan-card-icon{width:100%;height:140px;object-fit:cover;display:block;border-radius:12px;margin-bottom:14px;}
+  .plan-card-name{font-family:'Shippori Mincho',serif;font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:4px;}
+  .plan-card-price{font-size:.88rem;color:var(--red);font-weight:700;}
+  .plan-card-note{font-size:.75rem;color:#aaa;margin-top:4px;}
+
+  /* FORM */
+  .form-section{padding:0 32px 80px;}
+  .form-wrap{background:white;border-radius:24px;padding:48px;box-shadow:0 4px 24px rgba(0,0,0,.07);}
+  .form-group{margin-bottom:28px;}
+  .form-label{display:block;font-size:.88rem;font-weight:700;color:var(--dark);margin-bottom:8px;}
+  .form-label .required{
+    display:inline-block;background:var(--red);color:white;
+    font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:4px;
+    margin-left:8px;vertical-align:middle;
+  }
+  .form-label .optional{
+    display:inline-block;background:#ddd;color:#888;
+    font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:4px;
+    margin-left:8px;vertical-align:middle;
+  }
+  .form-input, .form-select, .form-textarea{
+    width:100%;padding:14px 18px;
+    border:2px solid #f0e0e4;border-radius:12px;
+    font-family:'Zen Maru Gothic',sans-serif;font-size:.95rem;color:var(--dark);
+    background:var(--cream);transition:border-color .2s,background .2s;
+    outline:none;
+  }
+  .form-input:focus, .form-select:focus, .form-textarea:focus{
+    border-color:var(--pink);background:white;
+  }
+  .form-textarea{min-height:120px;resize:vertical;}
+  .form-select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23aaa' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 18px center;padding-right:44px;}
+
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+
+  .form-hint{font-size:.78rem;color:#aaa;margin-top:6px;}
+
+  /* radio/checkbox */
+  .radio-group, .check-group{display:flex;flex-wrap:wrap;gap:10px;margin-top:4px;}
+  .radio-item, .check-item{
+    display:flex;align-items:center;gap:8px;
+    background:var(--cream);border:2px solid #f0e0e4;border-radius:50px;
+    padding:8px 18px;cursor:pointer;transition:all .2s;font-size:.88rem;font-weight:500;
+  }
+  .radio-item:has(input:checked), .check-item:has(input:checked){
+    background:var(--light-pink);border-color:var(--pink);color:var(--red);font-weight:700;
+  }
+  .radio-item input, .check-item input{display:none;}
+
+  .form-divider{border:none;border-top:1.5px dashed #f0e0e4;margin:36px 0;}
+
+  /* submit */
+  .form-submit-wrap{text-align:center;margin-top:40px;}
+  .btn-submit{
+    display:inline-block;background:var(--red);color:white;
+    padding:18px 64px;border-radius:50px;font-size:1.05rem;font-weight:700;
+    border:none;cursor:pointer;font-family:'Zen Maru Gothic',sans-serif;
+    transition:transform .2s,box-shadow .2s;
+    box-shadow:0 6px 24px rgba(192,57,43,.30);
+    letter-spacing:.06em;
+  }
+  .btn-submit:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(192,57,43,.35);}
+  .submit-note{font-size:.78rem;color:#aaa;margin-top:14px;}
+
+  /* 送信完了メッセージ */
+  .success-msg{
+    display:none;background:var(--light-green, #d8f3dc);border:2px solid var(--green);
+    border-radius:16px;padding:32px;text-align:center;margin-top:24px;
+  }
+  .success-msg .s-icon{font-size:3rem;margin-bottom:12px;}
+  .success-msg h3{font-family:'Shippori Mincho',serif;font-size:1.4rem;font-weight:800;color:var(--green);margin-bottom:8px;}
+  .success-msg p{font-size:.92rem;color:#555;line-height:1.8;}
+
+  footer{background:var(--dark);color:rgba(255,255,255,.75);padding:56px 32px 28px;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:48px;margin-bottom:40px;flex-wrap:wrap;}
+  .footer-brand .logo-text{color:var(--pink);font-size:1.3rem;}
+  .footer-brand .logo-sub{color:rgba(255,255,255,.5);}
+  .footer-tagline{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7;}
+  .footer-nav{display:flex;gap:48px;flex-wrap:wrap;}
+  .footer-nav-group h4{color:white;font-size:.88rem;font-weight:700;letter-spacing:.1em;margin-bottom:16px;}
+  .footer-nav-group a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:.84rem;margin-bottom:10px;transition:color .2s;}
+  .footer-nav-group a:hover{color:var(--pink);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:22px;text-align:center;font-size:.78rem;color:rgba(255,255,255,.35);}
+
+  @media(max-width:768px){
+    .header-inner{padding:12px 16px;}
+    nav{gap:12px;}
+    .plan-cards{grid-template-columns:1fr;}
+    .form-row{grid-template-columns:1fr;}
+    .form-wrap{padding:28px 20px;}
+    .footer-top{flex-direction:column;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🍓</span>
+      <div><span class="logo-text">ベリーファーム</span><span class="logo-sub">BERRY FARM いちご狩り農園</span></div>
+    </a>
+    <nav>
+      <a href="index.html">トップ</a>
+      <a href="index.html#about">サイト紹介</a>
+      <a href="service.html">サービス</a>
+      <a href="news.html">お知らせ</a>
+      <a href="access.html">アクセス</a>
+      <a href="reservation.html" class="nav-cta">🍓 予約する</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-label">Reservation</p>
+    <h1 class="page-hero-title">🍓 ご予約フォーム</h1>
+    <p class="page-hero-desc">ご来園の日程・プランをお選びください</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">トップ</a> &gt; ご予約</div>
+
+<!-- プラン選択 -->
+<section class="plan-select-section">
+  <div class="container">
+    <span class="section-label">Step 1</span>
+    <h2 class="section-title">プランを選んでください</h2>
+    <div class="plan-cards">
+      <div class="plan-select-card" onclick="selectPlan(this, 'スタンダードプラン')">
+        <img class="plan-card-icon" src="img6.png" alt="スタンダードプラン">
+        <div class="plan-card-name">スタンダード</div>
+        <div class="plan-card-price">¥1,500〜 / 大人1名</div>
+        <div class="plan-card-note">30分食べ放題・練乳付き</div>
+      </div>
+      <div class="plan-select-card selected" onclick="selectPlan(this, 'プレミアムプラン')">
+        <img class="plan-card-icon" src="img5.png" alt="プレミアムプラン">
+        <div class="plan-card-name">プレミアム</div>
+        <div class="plan-card-price">¥2,500〜 / 大人1名</div>
+        <div class="plan-card-note">45分・5品種食べ比べ</div>
+      </div>
+      <div class="plan-select-card" onclick="selectPlan(this, 'ファミリープラン')">
+        <img class="plan-card-icon" src="img1.png" alt="ファミリープラン">
+        <div class="plan-card-name">ファミリー</div>
+        <div class="plan-card-price">¥5,000 / 4名様まで</div>
+        <div class="plan-card-note">60分・お子様対応あり</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 予約フォーム -->
+<section class="form-section">
+  <div class="container">
+    <span class="section-label">Step 2</span>
+    <h2 class="section-title" style="margin-bottom:32px;">お客様情報を入力してください</h2>
+
+    <div class="form-wrap">
+      <div id="successMsg" class="success-msg">
+        <div class="s-icon">🍓</div>
+        <h3>予約を受け付けました！</h3>
+        <p>ご予約ありがとうございます。<br>確認メールをお送りしますので、しばらくお待ちください。<br>ご不明な点はお電話（000-0000-0000）までお気軽にどうぞ。</p>
+      </div>
+
+      <div id="formBody">
+        <!-- 来園日・人数 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">来園希望日<span class="required">必須</span></label>
+            <input type="date" class="form-input" id="visitDate">
+          </div>
+          <div class="form-group">
+            <label class="form-label">来園希望時間<span class="required">必須</span></label>
+            <select class="form-select" id="visitTime">
+              <option value="">選択してください</option>
+              <option>9:00〜</option>
+              <option>10:00〜</option>
+              <option>11:00〜</option>
+              <option>13:00〜</option>
+              <option>14:00〜</option>
+              <option>15:00〜</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">大人の人数<span class="required">必須</span></label>
+            <select class="form-select">
+              <option>1名</option><option selected>2名</option><option>3名</option>
+              <option>4名</option><option>5名</option><option>6名以上</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">子どもの人数<span class="optional">任意</span></label>
+            <select class="form-select">
+              <option selected>0名</option><option>1名</option><option>2名</option>
+              <option>3名</option><option>4名以上</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">選択中のプラン<span class="required">必須</span></label>
+          <input type="text" class="form-input" id="selectedPlan" value="プレミアムプラン" readonly style="background:#f5f0f2;color:#888;">
+          <p class="form-hint">※上のカードから変更できます</p>
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- お客様情報 -->
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label">お名前（姓）<span class="required">必須</span></label>
+            <input type="text" class="form-input" placeholder="例：山田">
+          </div>
+          <div class="form-group">
+            <label class="form-label">お名前（名）<span class="required">必須</span></label>
+            <input type="text" class="form-input" placeholder="例：花子">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">メールアドレス<span class="required">必須</span></label>
+          <input type="email" class="form-input" placeholder="例：hanako@example.com">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">電話番号<span class="required">必須</span></label>
+          <input type="tel" class="form-input" placeholder="例：090-0000-0000">
+        </div>
+
+        <hr class="form-divider">
+
+        <!-- オプション -->
+        <div class="form-group">
+          <label class="form-label">追加オプション<span class="optional">任意</span></label>
+          <div class="check-group">
+            <label class="check-item"><input type="checkbox">🥛 練乳追加（+¥100）</label>
+            <label class="check-item"><input type="checkbox">🍫 チョコソース（+¥100）</label>
+            <label class="check-item"><input type="checkbox">📦 お土産パック（+¥500）</label>
+            <label class="check-item"><input type="checkbox">🚌 送迎バス希望</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ご来園方法<span class="required">必須</span></label>
+          <div class="radio-group">
+            <label class="radio-item"><input type="radio" name="transport" checked>🚗 車</label>
+            <label class="radio-item"><input type="radio" name="transport">🚃 電車</label>
+            <label class="radio-item"><input type="radio" name="transport">🚌 送迎バス</label>
+            <label class="radio-item"><input type="radio" name="transport">🚲 その他</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">ご要望・アレルギー等<span class="optional">任意</span></label>
+          <textarea class="form-textarea" placeholder="車いす対応・アレルギーのある方・その他ご要望などがあればご記入ください"></textarea>
+        </div>
+
+        <div class="form-submit-wrap">
+          <button class="btn-submit" onclick="submitForm()">🍓 この内容で予約する</button>
+          <p class="submit-note">送信後、確認メールをお送りします。<br>返信まで1〜2営業日いただく場合があります。</p>
+        </div>
+      </div><!-- /formBody -->
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-icon">🍓</span><div><span class="logo-text">ベリーファーム</span><span class="logo-sub">BERRY FARM いちご狩り農園</span></div></div>
+        <p class="footer-tagline">甘くて、みずみずしい。<br>本物のいちごを摘みに来て。</p>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-group">
+          <h4>サイトマップ</h4>
+          <a href="index.html">トップページ</a>
+          <a href="service.html">サービス</a>
+          <a href="news.html">お知らせ</a>
+          <a href="access.html">アクセス</a>
+        </div>
+        <div class="footer-nav-group">
+          <h4>ご予約</h4>
+          <a href="reservation.html">予約フォーム</a>
+          <a href="service.html">プランを見る</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 ベリーファーム All Rights Reserved.</div>
+  </div>
+</footer>
+
+<script>
+  function selectPlan(el, planName) {
+    document.querySelectorAll('.plan-select-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('selectedPlan').value = planName;
+  }
+
+  function submitForm() {
+    const date = document.getElementById('visitDate').value;
+    const time = document.getElementById('visitTime').value;
+    if (!date) { alert('来園希望日を入力してください'); return; }
+    if (!time) { alert('来園希望時間を選択してください'); return; }
+    document.getElementById('formBody').style.display = 'none';
+    const msg = document.getElementById('successMsg');
+    msg.style.display = 'block';
+    window.scrollTo({top: msg.offsetTop - 100, behavior: 'smooth'});
+  }
+</script>
+
+</body>
+</html>

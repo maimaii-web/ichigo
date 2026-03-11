@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>サービス | ベリーファーム いちご狩り農園</title>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700;900&family=Shippori+Mincho:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#c0392b;--pink:#e8556d;--light-pink:#fde8ec;--cream:#fdf6f0;--green:#2d6a4f;--dark:#1a0a0d;--white:#fffaf8; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Zen Maru Gothic',sans-serif;background:var(--cream);color:var(--dark);}
+
+  header{background:var(--white);border-bottom:3px solid var(--pink);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(200,60,80,.10);}
+  .header-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 32px;}
+  .logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+  .logo-icon{font-size:2rem;}
+  .logo-text{font-family:'Shippori Mincho',serif;font-size:1.5rem;font-weight:800;color:var(--red);}
+  .logo-sub{font-size:.7rem;color:var(--green);font-weight:500;letter-spacing:.1em;display:block;}
+  nav{display:flex;gap:28px;align-items:center;}
+  nav a{text-decoration:none;color:var(--dark);font-weight:700;font-size:.92rem;position:relative;transition:color .2s;}
+  nav a::after{content:'';display:block;height:2px;background:var(--pink);width:0;transition:width .3s;position:absolute;bottom:-4px;left:0;}
+  nav a:hover{color:var(--red);}
+  nav a:hover::after{width:100%;}
+  .nav-cta{background:var(--red);color:white !important;padding:10px 22px;border-radius:50px;font-weight:700 !important;}
+  .nav-cta:hover{background:var(--pink) !important;}
+  .nav-cta::after{display:none !important;}
+
+  /* PAGE HERO with photo */
+  .page-hero{position:relative;height:340px;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;}
+  .page-hero-bg{position:absolute;inset:0;background-image:url('img3.png');background-size:cover;background-position:center;filter:brightness(0.45);}
+  .page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(26,10,13,.3),rgba(192,57,43,.25));}
+  .page-hero-content{position:relative;z-index:2;}
+  .page-hero-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.18em;color:rgba(255,255,255,.8);margin-bottom:10px;}
+  .page-hero-title{font-family:'Shippori Mincho',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:800;color:white;text-shadow:0 2px 16px rgba(0,0,0,.3);}
+  .page-hero-desc{color:rgba(255,255,255,.82);font-size:1rem;margin-top:14px;line-height:1.8;}
+  .breadcrumb{max-width:1100px;margin:20px auto 0;text-align:left;font-size:.8rem;color:#aaa;padding:0 32px;}
+  .breadcrumb a{color:#aaa;text-decoration:none;}
+  .breadcrumb a:hover{color:var(--red);}
+
+  .container{max-width:1100px;margin:0 auto;}
+  section{padding:80px 32px;}
+  .section-label{display:inline-block;font-size:.75rem;font-weight:700;letter-spacing:.18em;color:var(--pink);margin-bottom:8px;}
+  .section-title{font-family:'Shippori Mincho',serif;font-size:clamp(1.6rem,3.5vw,2.4rem);font-weight:800;color:var(--dark);margin-bottom:14px;}
+
+  /* PLANS */
+  .plans-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:48px;}
+  .plan-card{background:white;border-radius:24px;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);transition:transform .3s,box-shadow .3s;display:flex;flex-direction:column;}
+  .plan-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(232,85,109,.16);}
+  .plan-card.featured{border:2.5px solid var(--red);}
+  .plan-img{width:100%;height:200px;object-fit:cover;display:block;position:relative;}
+  .plan-img-wrap{position:relative;}
+  .plan-badge{position:absolute;top:12px;right:12px;background:#d4a017;color:white;font-size:.68rem;font-weight:700;padding:4px 12px;border-radius:50px;letter-spacing:.06em;z-index:1;}
+  .plan-header-info{padding:20px 24px 8px;}
+  .plan-name{font-family:'Shippori Mincho',serif;font-size:1.25rem;font-weight:800;color:var(--dark);}
+  .plan-price{font-family:'Shippori Mincho',serif;font-size:2rem;font-weight:800;color:var(--red);}
+  .plan-unit{font-size:.82rem;color:#999;}
+  .plan-body{padding:8px 24px 28px;flex:1;display:flex;flex-direction:column;}
+  .plan-desc{font-size:.88rem;color:#777;line-height:1.8;margin-bottom:18px;}
+  .plan-features{list-style:none;margin-bottom:24px;flex:1;}
+  .plan-features li{font-size:.88rem;padding:8px 0;border-bottom:1px dashed #f0e8ec;display:flex;gap:8px;}
+  .plan-features li:last-child{border-bottom:none;}
+  .plan-features li::before{content:'✅';}
+  .btn-plan{display:block;text-align:center;background:var(--red);color:white;padding:14px;border-radius:50px;font-size:.92rem;font-weight:700;text-decoration:none;transition:background .2s,transform .2s;}
+  .btn-plan:hover{background:var(--pink);transform:scale(1.02);}
+
+  /* VARIETIES */
+  .varieties{background:var(--white);}
+  .varieties-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:40px;}
+  .variety-card{background:var(--cream);border-radius:16px;overflow:hidden;border:2px solid transparent;transition:border-color .2s,transform .2s;}
+  .variety-card:hover{border-color:var(--pink);transform:translateY(-4px);}
+  .variety-img{width:100%;height:130px;object-fit:cover;display:block;}
+  .variety-info{padding:14px 14px 16px;}
+  .variety-name{font-family:'Shippori Mincho',serif;font-size:1rem;font-weight:800;color:var(--dark);margin-bottom:3px;}
+  .variety-origin{font-size:.75rem;color:#aaa;margin-bottom:6px;}
+  .variety-taste{font-size:.8rem;color:#777;line-height:1.5;}
+
+  /* FAQ */
+  .faq{background:var(--cream);}
+  .faq-list{max-width:760px;margin:40px auto 0;}
+  .faq-item{background:white;border-radius:16px;margin-bottom:14px;overflow:hidden;border:1.5px solid #f0e0e4;}
+  .faq-q{padding:20px 24px;font-weight:700;font-size:.95rem;display:flex;gap:12px;align-items:flex-start;}
+  .faq-q-icon{color:var(--red);font-weight:800;font-size:1.1rem;min-width:22px;}
+  .faq-a{padding:0 24px 20px 58px;font-size:.88rem;color:#666;line-height:1.8;}
+
+  footer{background:var(--dark);color:rgba(255,255,255,.75);padding:56px 32px 28px;}
+  .footer-inner{max-width:1100px;margin:0 auto;}
+  .footer-top{display:flex;justify-content:space-between;align-items:flex-start;gap:48px;margin-bottom:40px;flex-wrap:wrap;}
+  .footer-brand .logo-text{color:var(--pink);font-size:1.3rem;}
+  .footer-brand .logo-sub{color:rgba(255,255,255,.5);}
+  .footer-tagline{font-size:.85rem;color:rgba(255,255,255,.5);margin-top:12px;line-height:1.7;}
+  .footer-nav{display:flex;gap:48px;flex-wrap:wrap;}
+  .footer-nav-group h4{color:white;font-size:.88rem;font-weight:700;letter-spacing:.1em;margin-bottom:16px;}
+  .footer-nav-group a{display:block;color:rgba(255,255,255,.6);text-decoration:none;font-size:.84rem;margin-bottom:10px;transition:color .2s;}
+  .footer-nav-group a:hover{color:var(--pink);}
+  .footer-bottom{border-top:1px solid rgba(255,255,255,.10);padding-top:22px;text-align:center;font-size:.78rem;color:rgba(255,255,255,.35);}
+
+  @media(max-width:768px){
+    .plans-grid{grid-template-columns:1fr;}
+    .varieties-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-icon">🍓</span>
+      <div><span class="logo-text">ベリーファーム</span><span class="logo-sub">BERRY FARM いちご狩り農園</span></div>
+    </a>
+    <nav>
+      <a href="index.html">トップ</a>
+      <a href="index.html#about">サイト紹介</a>
+      <a href="service.html">サービス</a>
+      <a href="news.html">お知らせ</a>
+      <a href="access.html">アクセス</a>
+      <a href="reservation.html" class="nav-cta">🍓 予約する</a>
+    </nav>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-label">Services</p>
+    <h1 class="page-hero-title">サービス一覧</h1>
+    <p class="page-hero-desc">いちご狩りプランから農園体験まで、<br>お客様のご要望に合わせてお選びいただけます。</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">トップ</a> &gt; サービス</div>
+
+<!-- PLANS -->
+<section>
+  <div class="container">
+    <span class="section-label">Plans</span>
+    <h2 class="section-title">いちご狩りプラン</h2>
+    <p style="color:#777;font-size:.92rem;line-height:1.8;">ご来園人数やご目的に合わせて、3つのプランをご用意しています。</p>
+    <div class="plans-grid">
+
+      <div class="plan-card">
+        <div class="plan-img-wrap">
+          <img class="plan-img" src="img6.png" alt="スタンダードプラン">
+        </div>
+        <div class="plan-header-info">
+          <div class="plan-name">スタンダードプラン</div>
+          <div><span class="plan-price">¥1,500</span><span class="plan-unit">〜 / 大人1名</span></div>
+        </div>
+        <div class="plan-body">
+          <p class="plan-desc">気軽にいちご狩りを楽しみたい方に！30分間、新鮮ないちごを食べ放題。</p>
+          <ul class="plan-features">
+            <li>30分食べ放題</li>
+            <li>練乳付き</li>
+            <li>写真撮影OK</li>
+          </ul>
+          <a href="reservation.html" class="btn-plan">このプランで予約する</a>
+        </div>
+      </div>
+
+      <div class="plan-card featured">
+        <div class="plan-img-wrap">
+          <span class="plan-badge">人気No.1</span>
+          <img class="plan-img" src="img5.png" alt="プレミアムプラン">
+        </div>
+        <div class="plan-header-info">
+          <div class="plan-name">プレミアムプラン</div>
+          <div><span class="plan-price">¥2,500</span><span class="plan-unit">〜 / 大人1名</span></div>
+        </div>
+        <div class="plan-body">
+          <p class="plan-desc">一番人気！5品種食べ比べができるお得なプラン。お土産のパック付き。</p>
+          <ul class="plan-features">
+            <li>45分食べ放題</li>
+            <li>5品種食べ比べ</li>
+            <li>練乳・チョコソース付き</li>
+            <li>お土産パック（300g）付き</li>
+          </ul>
+          <a href="reservation.html" class="btn-plan">このプランで予約する</a>
+        </div>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-img-wrap">
+          <img class="plan-img" src="img1.png" alt="ファミリープラン">
+        </div>
+        <div class="plan-header-info">
+          <div class="plan-name">ファミリープラン</div>
+          <div><span class="plan-price">¥5,000</span><span class="plan-unit">/ 4名様まで</span></div>
+        </div>
+        <div class="plan-body">
+          <p class="plan-desc">家族でお得に楽しめる特別プラン。小さなお子様も一緒にいちご摘み体験！</p>
+          <ul class="plan-features">
+            <li>60分食べ放題（4名様）</li>
+            <li>子ども用ハサミ貸出</li>
+            <li>農園スタッフが案内</li>
+            <li>記念撮影サービス</li>
+          </ul>
+          <a href="reservation.html" class="btn-plan">このプランで予約する</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VARIETIES -->
+<section class="varieties">
+  <div class="container">
+    <span class="section-label">Varieties</span>
+    <h2 class="section-title">栽培品種のご紹介</h2>
+    <p style="color:#777;font-size:.92rem;line-height:1.8;">ベリーファームでは5品種のいちごを栽培しています。それぞれ異なる味わいをお楽しみください。</p>
+    <div class="varieties-grid">
+      <div class="variety-card">
+        <img class="variety-img" src="img2.png" alt="とちおとめ">
+        <div class="variety-info">
+          <div class="variety-name">とちおとめ</div>
+          <div class="variety-origin">栃木県産</div>
+          <p class="variety-taste">甘さと酸味のバランスが絶妙。いちごの王様。</p>
+        </div>
+      </div>
+      <div class="variety-card">
+        <img class="variety-img" src="img3.png" alt="あまおう">
+        <div class="variety-info">
+          <div class="variety-name">あまおう</div>
+          <div class="variety-origin">福岡県産</div>
+          <p class="variety-taste">大粒で甘みが強く、ジューシーな人気品種。</p>
+        </div>
+      </div>
+      <div class="variety-card">
+        <img class="variety-img" src="img5.png" alt="紅ほっぺ">
+        <div class="variety-info">
+          <div class="variety-name">紅ほっぺ</div>
+          <div class="variety-origin">静岡県産</div>
+          <p class="variety-taste">強い甘みと酸味が特徴。鮮やかな赤色が美しい。</p>
+        </div>
+      </div>
+      <div class="variety-card">
+        <img class="variety-img" src="img6.png" alt="さがほのか">
+        <div class="variety-info">
+          <div class="variety-name">さがほのか</div>
+          <div class="variety-origin">佐賀県産</div>
+          <p class="variety-taste">上品な甘さで後味すっきり。香りが豊か。</p>
+        </div>
+      </div>
+      <div class="variety-card">
+        <img class="variety-img" src="img7.png" alt="おいCベリー">
+        <div class="variety-info">
+          <div class="variety-name">おいCベリー</div>
+          <div class="variety-origin">当農園オリジナル</div>
+          <p class="variety-taste">ビタミンC豊富。甘くて食べやすい新品種。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:8px;"><span class="section-label">FAQ</span></div>
+    <h2 class="section-title" style="text-align:center;">よくある質問</h2>
+    <div class="faq-list">
+      <div class="faq-item"><div class="faq-q"><span class="faq-q-icon">Q</span>予約なしで来園できますか？</div><div class="faq-a">事前のご予約をおすすめしています。当日空きがある場合は受け付けますが、特に週末・祝日は満員になることが多いため、公式サイトまたはお電話でのご予約をお願いしています。</div></div>
+      <div class="faq-item"><div class="faq-q"><span class="faq-q-icon">Q</span>子どもの料金はありますか？</div><div class="faq-a">3歳以下は無料、4歳〜小学生は大人料金の半額となります。ファミリープランもございますのでご活用ください。</div></div>
+      <div class="faq-item"><div class="faq-q"><span class="faq-q-icon">Q</span>車いすでも入れますか？</div><div class="faq-a">はい、全ハウスが高設栽培のためバリアフリー対応です。車いすのままいちご摘みをお楽しみいただけます。</div></div>
+      <div class="faq-item"><div class="faq-q"><span class="faq-q-icon">Q</span>雨の日でも楽しめますか？</div><div class="faq-a">はい！すべてのいちごはハウス（温室）内で栽培しているため、雨天でも快適にいちご狩りをお楽しみいただけます。</div></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo"><span class="logo-icon">🍓</span><div><span class="logo-text">ベリーファーム</span><span class="logo-sub">BERRY FARM いちご狩り農園</span></div></div>
+        <p class="footer-tagline">甘くて、みずみずしい。<br>本物のいちごを摘みに来て。</p>
+      </div>
+      <div class="footer-nav">
+        <div class="footer-nav-group"><h4>サイトマップ</h4><a href="index.html">トップページ</a><a href="index.html#about">サイト紹介</a><a href="index.html#access">アクセス</a></div>
+        <div class="footer-nav-group"><h4>コンテンツ</h4><a href="service.html">サービス</a><a href="news.html">お知らせ</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2025 ベリーファーム All Rights Reserved.</div>
+  </div>
+</footer>
+</body>
+</html>
